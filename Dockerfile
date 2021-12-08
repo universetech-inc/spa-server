@@ -1,13 +1,8 @@
-FROM node:lts
+FROM nginx:stable-alpine
 
 WORKDIR /usr/src/app
 
-COPY package.json ./
-COPY yarn.lock ./
+COPY ./nginx.conf /etc/nginx/nginx.conf
 
-RUN yarn --frozen-lockfile
-
-COPY index.js ./
-
-EXPOSE 3000
-CMD [ "node", "index.js" ]
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
